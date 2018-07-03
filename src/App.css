@@ -15,3 +15,7 @@
 .App > section > ul {
   list-style: none;
 }
+
+h3:hover, h4:hover {
+  cursor: pointer;
+}

@@ -6,7 +6,24 @@ import data from "./data.json";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = data;
+    this.state = {
+      data,
+      collection: null,
+      article: null
+    };
+  }
+
+  display(e, type) {
+    if (this.state[type] !== null) {
+      this.setState({
+        [type]: null
+      });
+    } else {
+      this.setState({
+        [type]: Number(e.currentTarget.getAttribute("idx"))
+      });
+    }
+    debugger;
   }
 
   displayArticles(collection) {
@@ -22,11 +39,17 @@ class App extends Component {
   }
 
   render() {
-    const collections = this.state.collections.map((collection, i) => {
+    const collections = this.state.data.collections.map((collection, i) => {
       return (
         <section key={i}>
-          <h3>{collection.collectionName}</h3>
-          <ul>{this.displayArticles(collection)}</ul>
+          <h3 onClick={e => this.display(e, "collection")} idx={i}>
+            {collection.collectionName}
+          </h3>
+          {this.state.collection === i ? (
+            <ul>{this.displayArticles(collection)}</ul>
+          ) : (
+            ""
+          )}
         </section>
       );
     });
