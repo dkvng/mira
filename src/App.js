@@ -1,19 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import data from "./data.json";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = data;
+  }
+
+  displayArticles(collection) {
+    return collection.articles.map((article, i) => {
+      return (
+        <li key={i}>
+          <h4>{article.title}</h4>
+          <h5>{article.author}</h5>
+          <p>{article.body}</p>
+        </li>
+      );
+    });
+  }
+
   render() {
+    const collections = this.state.map((collection, i) => {
+      return (
+        <section key={i}>
+          <h3>{collection.collectionName}</h3>
+          <ul>{this.displayArticles(collection)}</ul>
+        </section>
+      );
+    });
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <main className="App">
+        <h1>Knowledge Center</h1>
+        {collections}
+      </main>
     );
   }
 }
