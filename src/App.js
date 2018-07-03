@@ -14,7 +14,7 @@ class App extends Component {
       return (
         <li key={i}>
           <h4>{article.title}</h4>
-          <h5>{article.author}</h5>
+          <h5>by {article.author}</h5>
           <p>{article.body}</p>
         </li>
       );
@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-    const collections = this.state.map((collection, i) => {
+    const collections = this.state.collections.map((collection, i) => {
       return (
         <section key={i}>
           <h3>{collection.collectionName}</h3>
