@@ -14,25 +14,33 @@ class App extends Component {
   }
 
   display(e, type) {
-    if (this.state[type] !== null) {
+    const idx = Number(e.currentTarget.getAttribute("idx"));
+    if (this.state[type] === idx) {
       this.setState({
         [type]: null
       });
     } else {
       this.setState({
-        [type]: Number(e.currentTarget.getAttribute("idx"))
+        [type]: idx
       });
     }
-    debugger;
   }
 
   displayArticles(collection) {
     return collection.articles.map((article, i) => {
       return (
         <li key={i}>
-          <h4>{article.title}</h4>
-          <h5>by {article.author}</h5>
-          <p>{article.body}</p>
+          <h4 onClick={e => this.display(e, "article")} idx={i}>
+            {article.title}
+          </h4>
+          {this.state.article === i ? (
+            <article>
+              <h5>by {article.author}</h5>
+              <p>{article.body}</p>
+            </article>
+          ) : (
+            ""
+          )}
         </li>
       );
     });
